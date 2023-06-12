@@ -52,9 +52,22 @@ class ImageDownloader {
         
         task.resume()
     }
-    
-    func image(music: MusicData, imageURL: URL, completion: @escaping (Data?, Error?) -> Void) {
-        download(imageURL: imageURL, completion: completion)
-    }
-
+    func image(music: Music, completion: @escaping (Data?, Error?) -> Void) {
+        if let artworkUrlString = music.artworkUrl100 {
+            guard let url = URL(string: artworkUrlString)  else { return }
+                download(imageURL: url, completion: completion)
+            }
+        }
 }
+//    func image(music: Music, completion: @escaping (Data?, Error?) -> (Void)) {
+//        if let results = music.artworkUrl100 {
+//            guard let url = URL(string: results.url ?? "") else { return }
+//            download(imageURL: url, completion: completion)
+//        }
+//    }
+    
+    
+//   func image(music: MusicData, imageURL: URL, completion: @escaping (Data?, Error?) -> Void) {
+//        download(imageURL: imageURL, completion: completion)
+//    }
+ 

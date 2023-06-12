@@ -61,7 +61,6 @@ extension HomePresenter: HomePresenterProtocol {
     }
 
 }
-
 extension HomePresenter: HomeInteractorOutputProtocol {
     
     func fetchMusicOutput(_ result: MusicSourcesResult) {
@@ -70,10 +69,31 @@ extension HomePresenter: HomeInteractorOutputProtocol {
         
         switch result {
         case .success(let response):
-            self.music = response.result
+            guard let musicData = response.results else {
+                view.showError("Invalid music data")
+                return
+            }
+            self.music = musicData
             view.reloadData()
         case .failure(let error):
             view.showError(error.localizedDescription)
         }
-    }    
+    }
 }
+
+
+//extension HomePresenter: HomeInteractorOutputProtocol {
+//    
+//    func fetchMusicOutput(_ result: MusicSourcesResult) {
+//        
+//        view.hideLoadingView()
+//        
+//        switch result {
+//        case .success(let response):
+//            self.music = response.result
+//            view.reloadData()
+//        case .failure(let error):
+//            view.showError(error.localizedDescription)
+//        }
+//    }    
+//}

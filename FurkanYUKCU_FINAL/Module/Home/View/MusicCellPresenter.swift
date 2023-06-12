@@ -24,23 +24,45 @@ final class MusicCellPresenter {
     }
 }
 extension MusicCellPresenter: MusicCellPresenterProtocol {
-   
     func load() {
-        ImageDownloader.shared.image(
-            music: music,
-            format: .threeByTwoSmallAt2X)
-        { [weak self] data, error in
+        ImageDownloader.shared.image(music: music) { [weak self] data, error in
+            guard let self = self else { return }
             
-            guard let self else { return }
+            if let error = error {
+                print("Hata: \(error)")
+                return
+            }
             
-            if let data {
+            if let data = data {
                 guard let img = UIImage(data: data) else { return }
                 self.view?.musicImg(img)
             }
         }
-
+        
         view?.trackName(music.trackName ?? "")
         view?.artistName(music.artistName ?? "")
         view?.collectionName(music.collectionName ?? "")
     }
 }
+
+//extension MusicCellPresenter: MusicCellPresenterProtocol {
+//
+//    func load() {
+//        ImageDownloader.shared.image(
+//            music: music,
+//            format: .threeByTwoSmallAt2X)
+//        { [weak self] data, error in
+//
+//            guard let self else { return }
+//
+//            if let data {
+//                guard let img = UIImage(data: data) else { return }
+//                self.view?.musicImg(img)
+//            }
+//        }
+//
+//        view?.trackName(music.trackName ?? "")
+//        view?.artistName(music.artistName ?? "")
+//        view?.collectionName(music.collectionName ?? "")
+//    }
+//}

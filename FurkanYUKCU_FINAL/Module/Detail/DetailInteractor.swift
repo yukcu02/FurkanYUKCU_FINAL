@@ -16,7 +16,6 @@ protocol DetailInteractorOutputProtocol {
     func fetchMusicDetailOutput(result: MusicSourcesResult)
 }
 
-
 final class DetailInteractor {
     var output: HomeInteractorOutputProtocol?
 }

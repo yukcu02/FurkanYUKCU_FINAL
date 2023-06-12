@@ -13,7 +13,6 @@ enum RequestMethod: String {
     case delete = "DELETE"
     case put = "PUT"
 }
-
 enum Router {
     case home
     case arts
@@ -38,18 +37,16 @@ final class API {
         return instance
     }()
     
-    private let apiKey = ""
+    private let apiKey = "search?term=jack+johnson"
     
-    var baseURL = ""
+    var baseURL = "https://itunes.apple.com/"
     
     private var service: NetworkService
     
     init(service: NetworkService = NetworkManager()) {
         self.service = service
     }
-    
 }
-
 extension API {
        
     func isConnectedToInternet() -> Bool {
@@ -112,5 +109,4 @@ extension API {
         }
         return request
     }
-    
 }

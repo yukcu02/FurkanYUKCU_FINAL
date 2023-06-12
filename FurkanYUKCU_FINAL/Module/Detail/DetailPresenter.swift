@@ -32,21 +32,20 @@ final class DetailPresenter {
     }
     
 }
-
 extension DetailPresenter: DetailPresenterProtocol {
-    
     func viewDidLoad() {
-        
         guard let music = view.getSource() else { return }
-        
-        let musicData = MusicData(resultCount: 1, results: [music])
-        guard let artworkUrlString = music.artworkUrl100, let artworkURL = URL(string: artworkUrlString) else { return }
-        ImageDownloader.shared.image(music: musicData, imageURL: artworkURL) { [weak self] data, error in
-            guard let self = self, let data = data, error == nil else { return }
-            guard let image = UIImage(data: data) else { return }
-            self.view.setmusicImg(image)
+
+        if let artworkUrlString = music.artworkUrl100 {
+            guard let artworkURL = URL(string: artworkUrlString) else { return }
+
+            ImageDownloader.shared.image(music: music) { data, error in // Değişiklik #1: imageURL parametresini kaldır
+                guard let data = data, error == nil else { return }
+                guard let image = UIImage(data: data) else { return }
+                self.view.setmusicImg(image)
+            }
         }
-        
+
         view.setartistName(music.artistName ?? "")
         view.settrackPrice(music.trackPrice ?? 0.0)
         view.setcollectionPrice(music.collectionPrice ?? 0.0)
@@ -55,6 +54,56 @@ extension DetailPresenter: DetailPresenterProtocol {
         view.settrackName(music.trackName ?? "")
     }
 }
+
+
+
+//extension DetailPresenter: DetailPresenterProtocol {
+//    func viewDidLoad() {
+//        guard let music = view.getSource() else { return }
+//
+//        if let artworkUrlString = music.artworkUrl100 {
+//            guard let artworkURL = URL(string: artworkUrlString) else { return }
+//
+//            ImageDownloader.shared.image(music: music, imageURL: artworkURL) { [weak self] data, error in
+//                guard let self = self, let data = data, error == nil else { return }
+//                guard let image = UIImage(data: data) else { return }
+//                self.view.setmusicImg(image)
+//            }
+//        }
+//
+//        view.setartistName(music.artistName ?? "")
+//        view.settrackPrice(music.trackPrice ?? 0.0)
+//        view.setcollectionPrice(music.collectionPrice ?? 0.0)
+//        view.setcollectionName(music.collectionName ?? "")
+//        view.setprimaryGenreName(music.primaryGenreName ?? "")
+//        view.settrackName(music.trackName ?? "")
+//    }
+//}
+
+
+
+//extension DetailPresenter: DetailPresenterProtocol {
+//
+//    func viewDidLoad() {
+//
+//        guard let music = view.getSource() else { return }
+//
+//        let musicData = MusicData(resultCount: 1, results: [music])
+//        guard let artworkUrlString = music.artworkUrl100, let artworkURL = URL(string: artworkUrlString) else { return }
+//        ImageDownloader.shared.image(music: musicData, imageURL: artworkURL) { [weak self] data, error in
+//            guard let self = self, let data = data, error == nil else { return }
+//            guard let image = UIImage(data: data) else { return }
+//            self.view.setmusicImg(image)
+//        }
+//
+//        view.setartistName(music.artistName ?? "")
+//        view.settrackPrice(music.trackPrice ?? 0.0)
+//        view.setcollectionPrice(music.collectionPrice ?? 0.0)
+//        view.setcollectionName(music.collectionName ?? "")
+//        view.setprimaryGenreName(music.primaryGenreName ?? "")
+//        view.settrackName(music.trackName ?? "")
+//    }
+//}
 
 
 //extension DetailPresenter: DetailPresenterProtocol {

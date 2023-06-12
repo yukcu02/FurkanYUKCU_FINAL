@@ -13,14 +13,19 @@ class BaseViewController: UIViewController, LoadingShowable {
         super.viewDidLoad()
 
     }
-    
     func showAlert(_ title: String, _ message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        present(alert, animated: true, completion: nil)
-        alert.addAction(okAction)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-    
-
+//    func showAlert(_ title: String, _ message: String) {
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "OK", style: .default)
+//        present(alert, animated: true, completion: nil)
+//        alert.addAction(okAction)
+//    }
 }
 

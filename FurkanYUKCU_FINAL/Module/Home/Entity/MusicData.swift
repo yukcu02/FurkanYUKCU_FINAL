@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 public struct MusicData: Codable {
     public let resultCount: Int?
     public let results: [Music]?
@@ -45,26 +43,23 @@ public struct MusicData: Codable {
        }
    }
 
-public enum Explicitness: String, Codable {
-    case explicit = "explicit"
-    case notExplicit = "notExplicit"
-}
-
-public enum Country: String, Codable {
-    case tur = "TUR"
-}
-
-public enum Currency: String, Codable {
-    case currencyTRY = "TRY"
-}
-
-public enum Kind: String, Codable {
-    case song = "song"
-}
-
-public enum WrapperType: String, Codable {
-    case track = "track"
-}
-
-
-
+//public enum Explicitness: String, Codable {
+//    case explicit = "explicit"
+//    case notExplicit = "notExplicit"
+//}
+//
+//public enum Country: String, Codable {
+//    case tur = "TUR"
+//}
+//
+//public enum Currency: String, Codable {
+//    case currencyTRY = "TRY"
+//}
+//
+//public enum Kind: String, Codable {
+//    case song = "song"
+//}
+//
+//public enum WrapperType: String, Codable {
+//    case track = "track"
+//}
