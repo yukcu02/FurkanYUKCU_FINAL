@@ -14,8 +14,8 @@ protocol MusicServiceProtocol {
 
 extension API: MusicServiceProtocol {
     
- public func fetchMusic(completion: @escaping (Result<Music, NetworkError>) -> Void) {
-        executeRequestFor(router: .home, completion: completion)
+    public func fetchMusic(completion: @escaping (Result<Music, NetworkError>) -> Void) {
+        let searchWord = "" // İstediğiniz arama kelimesini buraya yerleştirin
+        executeRequestFor(router: .home, searchWord: searchWord, completion: completion)
     }
-    
 }

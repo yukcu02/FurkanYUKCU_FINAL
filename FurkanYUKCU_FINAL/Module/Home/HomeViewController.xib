@@ -28,26 +28,36 @@
                     </connections>
                 </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="SrK-ci-dmV">
-                    <rect key="frame" x="0.0" y="115" width="393" height="703"/>
+                    <rect key="frame" x="0.0" y="115" width="393" height="657"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRz-Sc-05Y">
+                    <rect key="frame" x="16" y="772" width="361" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="searchButton:" destination="-1" eventType="touchUpInside" id="2fh-MJ-KFh"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SrK-ci-dmV" secondAttribute="bottom" id="9bz-QM-4U8"/>
+                <constraint firstItem="cRz-Sc-05Y" firstAttribute="centerX" secondItem="SrK-ci-dmV" secondAttribute="centerX" id="6Lp-FQ-u88"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SrK-ci-dmV" secondAttribute="bottom" constant="46" id="9bz-QM-4U8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SrK-ci-dmV" secondAttribute="trailing" id="C96-MH-m0t"/>
+                <constraint firstItem="cRz-Sc-05Y" firstAttribute="top" secondItem="SrK-ci-dmV" secondAttribute="bottom" id="Kzo-s1-t4W"/>
                 <constraint firstItem="SrK-ci-dmV" firstAttribute="top" secondItem="PWK-nQ-UP1" secondAttribute="bottom" id="Mqb-qK-3ec"/>
+                <constraint firstItem="cRz-Sc-05Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="NKj-8N-Dmn"/>
                 <constraint firstItem="PWK-nQ-UP1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OAP-WE-QiX"/>
                 <constraint firstItem="SrK-ci-dmV" firstAttribute="top" secondItem="PWK-nQ-UP1" secondAttribute="bottom" id="Ord-Hx-K0U"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SrK-ci-dmV" secondAttribute="bottom" id="StM-kG-qbs"/>
                 <constraint firstItem="PWK-nQ-UP1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Tpt-aa-NJV"/>
                 <constraint firstItem="SrK-ci-dmV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="haA-Es-R1o"/>
                 <constraint firstItem="SrK-ci-dmV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="n1v-T4-Ddu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SrK-ci-dmV" secondAttribute="trailing" id="o4C-4x-fjp"/>
                 <constraint firstItem="PWK-nQ-UP1" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="sGH-aE-x2h"/>
             </constraints>
-            <point key="canvasLocation" x="131" y="-11"/>
+            <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
     <resources>

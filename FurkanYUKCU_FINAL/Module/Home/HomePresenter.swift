@@ -12,6 +12,8 @@ protocol HomePresenterProtocol: AnyObject {
     func numberOfItems() -> Int
     func music(_ index: Int) -> Music?
     func didSelectRowAt(index: Int)
+    func searchMusic(with keyword: String)
+
 }
 
 final class HomePresenter {
@@ -59,7 +61,11 @@ extension HomePresenter: HomePresenterProtocol {
         view.showLoadingView()
         interactor.fetchMusic()
     }
-
+    func searchMusic(with keyword: String) {
+        // API çağrısı yapılabilir, veriler çekilebilir
+        // API'ye searchWord parametresini gönderebilirsiniz
+        // Sonuçları HomeViewController üzerinden görüntülemek için gerekli fonksiyonları çağırabilirsiniz
+    }
 }
 extension HomePresenter: HomeInteractorOutputProtocol {
     

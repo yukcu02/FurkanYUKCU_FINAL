@@ -18,6 +18,8 @@ protocol HomeViewControllerProtocol: AnyObject {
 
 final class HomeViewController: BaseViewController {
 
+    @IBAction func searchButton(_ sender: UIButton) {
+    }
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -25,7 +27,7 @@ final class HomeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        searchBar.delegate = self
         // Do any additional setup after loading the view.
         presenter.viewDidLoad()
     }
@@ -100,4 +102,13 @@ extension HomeViewController: UITableViewDelegate {
         return 130
     }
     
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchWord = searchBar.text {
+            presenter.searchMusic(with: searchWord)
+        }
+        searchBar.resignFirstResponder()
+    }
 }
