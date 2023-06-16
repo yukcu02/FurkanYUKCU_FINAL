@@ -78,4 +78,3 @@ extension NetworkManager: NetworkService {
         task.resume()
     }
 }
-

@@ -11,26 +11,22 @@ import SafariServices
 protocol DetailRouterProtocol {
     func navigate(_ route: DetailRoutes)
 }
-
 enum DetailRoutes {
     case openURL(url: URL)
 }
-
 final class DetailRouter {
     
     weak var viewController: DetailViewController?
     
     static func createModule() -> DetailViewController {
-         let view = DetailViewController()
-         let router = DetailRouter()
-         let presenter = DetailPresenter(view: view, router: router)
-         view.presenter = presenter
-         router.viewController = view
-         return view
-     }
-    
+        let view = DetailViewController()
+        let router = DetailRouter()
+        let presenter = DetailPresenter(view: view, router: router)
+        view.presenter = presenter
+        router.viewController = view
+        return view
+    }
 }
-
 extension DetailRouter: DetailRouterProtocol {
     
     func navigate(_ route: DetailRoutes) {
@@ -40,7 +36,5 @@ extension DetailRouter: DetailRouterProtocol {
             let urlForNews = SFSafariViewController(url: url)
             viewController?.present(urlForNews, animated: true)
         }
-        
     }
-    
 }

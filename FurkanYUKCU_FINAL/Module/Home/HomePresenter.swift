@@ -1,11 +1,5 @@
-//
-//  HomePresenter.swift
-//  FurkanYUKCU_FINAL
-//
-//  Created by Furkan Yükcü on 8.06.2023.
-//
-
 import Foundation
+import iTunesAPI
 
 protocol HomePresenterProtocol: AnyObject {
     func viewDidLoad()
@@ -13,27 +7,32 @@ protocol HomePresenterProtocol: AnyObject {
     func music(_ index: Int) -> Music?
     func didSelectRowAt(index: Int)
     func searchMusic(with keyword: String)
-
 }
 
 final class HomePresenter {
-   
+    
     unowned var view: HomeViewControllerProtocol
     let router: HomeRouterProtocol!
     let interactor: HomeInteractorProtocol!
     
     private var music: [Music] = []
+    private var filteredMusic: [Music] = []
+    private var currentSearchTask: DispatchWorkItem?
     
     init(
-         view: HomeViewControllerProtocol,
-         router: HomeRouterProtocol,
-         interactor: HomeInteractorProtocol)
-    {
+        view: HomeViewControllerProtocol,
+        router: HomeRouterProtocol,
+        interactor: HomeInteractorProtocol
+    ) {
         self.view = view
         self.router = router
         self.interactor = interactor
     }
     
+    private func fetchMusic(_ searchWord: String) {
+        view.showLoadingView()
+        interactor.fetchMusic(searchWord)
+    }
 }
 
 extension HomePresenter: HomePresenterProtocol {
@@ -41,7 +40,6 @@ extension HomePresenter: HomePresenterProtocol {
     func viewDidLoad() {
         view.setupTableView()
         view.setTitle("iTunes Search")
-        fetchMusic()
     }
     
     func numberOfItems() -> Int {
@@ -57,49 +55,24 @@ extension HomePresenter: HomePresenterProtocol {
         router.navigate(.detail(source: source))
     }
     
-    private func fetchMusic() {
-        view.showLoadingView()
-        interactor.fetchMusic()
-    }
     func searchMusic(with keyword: String) {
-        // API çağrısı yapılabilir, veriler çekilebilir
-        // API'ye searchWord parametresini gönderebilirsiniz
-        // Sonuçları HomeViewController üzerinden görüntülemek için gerekli fonksiyonları çağırabilirsiniz
-    }
-}
-extension HomePresenter: HomeInteractorOutputProtocol {
-    
-    func fetchMusicOutput(_ result: MusicSourcesResult) {
+        currentSearchTask?.cancel()
         
-        view.hideLoadingView()
-        
-        switch result {
-        case .success(let response):
-            guard let musicData = response.results else {
-                view.showError("Invalid music data")
-                return
-            }
-            self.music = musicData
-            view.reloadData()
-        case .failure(let error):
-            view.showError(error.localizedDescription)
+        let task = DispatchWorkItem { [weak self] in
+            self?.fetchMusic(keyword)
         }
+        currentSearchTask = task
+        
+        DispatchQueue.main.async(execute: task)
+    }
+}
+
+extension HomePresenter: HomeInteractorOutputProtocol {
+    func fetchMusicOutput(_ result: [Music]) {
+        music = result
+        view.hideLoadingView()
+        view.reloadData()
     }
 }
 
 
-//extension HomePresenter: HomeInteractorOutputProtocol {
-//    
-//    func fetchMusicOutput(_ result: MusicSourcesResult) {
-//        
-//        view.hideLoadingView()
-//        
-//        switch result {
-//        case .success(let response):
-//            self.music = response.result
-//            view.reloadData()
-//        case .failure(let error):
-//            view.showError(error.localizedDescription)
-//        }
-//    }    
-//}

@@ -8,10 +8,9 @@
 import UIKit
 
 class BaseViewController: UIViewController, LoadingShowable {
-
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-
+        super.viewDidLoad()        
     }
     func showAlert(_ title: String, _ message: String) {
         DispatchQueue.main.async {
@@ -21,11 +20,4 @@ class BaseViewController: UIViewController, LoadingShowable {
             self.present(alert, animated: true, completion: nil)
         }
     }
-//    func showAlert(_ title: String, _ message: String) {
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        let okAction = UIAlertAction(title: "OK", style: .default)
-//        present(alert, animated: true, completion: nil)
-//        alert.addAction(okAction)
-//    }
 }
-

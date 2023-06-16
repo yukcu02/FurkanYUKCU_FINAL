@@ -17,98 +17,108 @@ protocol HomeViewControllerProtocol: AnyObject {
 }
 
 final class HomeViewController: BaseViewController {
-
-    @IBAction func searchButton(_ sender: UIButton) {
-    }
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var presenter: HomePresenterProtocol!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchBar.delegate = self
-        // Do any additional setup after loading the view.
-        presenter.viewDidLoad()
-    }
-}
+       
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           searchBar.delegate = self
+           // Do any additional setup after loading the view.
+           presenter.viewDidLoad()
+       }
+   }
 
 
-extension HomeViewController: HomeViewControllerProtocol {
-    
-    func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(cellType: MusicCell.self)
-    }
-    
-    func reloadData() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.tableView.reloadData()
-        }
-    }
-    
-    func showError(_ message: String) {
-        showAlert("Error", message)
-    }
-    
-    func showLoadingView() {
-        showLoading()
-    }
-    
-    func hideLoadingView() {
-        hideLoading()
-    }
-    
-    func setTitle(_ title: String) {
-        self.title = title
-    }
-    
-    
-}
+   extension HomeViewController: HomeViewControllerProtocol {
+       
+       func setupTableView() {
+           tableView.dataSource = self
+           tableView.delegate = self
+           tableView.register(cellType: MusicCell.self)
+       }
+       
+       func reloadData() {
+           DispatchQueue.main.async { [weak self] in
+               guard let self else { return }
+               self.tableView.reloadData()
+           }
+       }
+       
+       func showError(_ message: String) {
+           showAlert("Error", message)
+       }
+       
+       func showLoadingView() {
+           showLoading()
+       }
+       
+       func hideLoadingView() {
+           hideLoading()
+       }
+       
+       func setTitle(_ title: String) {
+           self.title = title
+       }
+       
+       
+   }
 
-extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.numberOfItems()
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(with: MusicCell.self, for: indexPath)
-        cell.selectionStyle = .none // basıldığında renk değiştirmesi. burası sonra değiştirilecek.
-        
-        if let music = presenter.music(indexPath.row) {
-            cell.cellPresenter = MusicCellPresenter(view: cell, music: music)
-        }
-        
-        return cell
-    }
-    
-}
+   extension HomeViewController: UITableViewDataSource {
+       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+           presenter.numberOfItems()
+       }
+       
+       
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         let cell = tableView.dequeueReusableCell(with: MusicCell.self, for: indexPath)
+         cell.selectionStyle = .none
 
-extension HomeViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectRowAt(index: indexPath.row)
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
-    }
-    
-}
+         if let music = presenter.music(indexPath.row) {
+             let cellInteractor = MusicCellInteractor()
+             let presenter = MusicCellPresenter(
+                 view: cell,
+                 interactor: cellInteractor,
+                 music: music
+             )
+             cellInteractor.output = presenter
+             cell.cellPresenter = presenter
 
-extension HomeViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let searchWord = searchBar.text {
-            presenter.searchMusic(with: searchWord)
-        }
-        searchBar.resignFirstResponder()
-    }
-}
+             cell.loadImage(urlString: music.artworkUrl100 ?? "")
+         }
+
+         return cell
+     }
+
+   }
+
+   extension HomeViewController: UITableViewDelegate {
+       
+       func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           presenter.didSelectRowAt(index: indexPath.row)
+       }
+       
+       func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+           return UITableView.automaticDimension
+       }
+       
+       func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           return 130
+       }
+       
+   }
+
+   extension HomeViewController: UISearchBarDelegate {
+       func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+           if let searchWord = searchBar.text {
+               presenter.searchMusic(with: searchWord)
+           }
+           searchBar.resignFirstResponder()
+       }
+       
+       func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+           //presenter.searchChange(searchText)
+       }
+   }

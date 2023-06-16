@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iTunesAPI
 
 protocol DetailViewControllerProtocol: AnyObject {
     func settrackPrice(_ title: Double)
@@ -17,7 +18,6 @@ protocol DetailViewControllerProtocol: AnyObject {
     func setmusicImg(_ image: UIImage)
     func getSource() -> Music?
 }
-
 final class DetailViewController: BaseViewController {
     @IBOutlet weak var musicImg: UIImageView!
     @IBOutlet weak var artistName: UILabel!
@@ -26,24 +26,27 @@ final class DetailViewController: BaseViewController {
     @IBOutlet weak var trackPrice: UILabel!
     @IBOutlet weak var primaryGenreName: UILabel!
     @IBOutlet weak var trackName: UILabel!
-    
-    
+        
     var presenter: DetailPresenterProtocol!
     var source: Music?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         presenter.viewDidLoad()
+        loadImage(urlString: source?.artworkUrl100 ?? "")
     }
-    
-  
+    func loadImage(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else { return }
+            DispatchQueue.main.async {
+                self.setmusicImg(UIImage(data: data)!)
+            }
+        }.resume()
+    }
     @IBAction func playButton(_ sender: UIButton) {
     }
-    
-
 }
-
 extension DetailViewController: DetailViewControllerProtocol {
     func setartistName(_ text: String) {
         self.artistName.text = text
@@ -56,7 +59,6 @@ extension DetailViewController: DetailViewControllerProtocol {
     func setcollectionPrice(_ price: Double) {
         self.collectionPrice.text = "\(price)"
     }
-
     
     func setcollectionName(_ text: String) {
         self.collectionName.text = text
@@ -71,9 +73,7 @@ extension DetailViewController: DetailViewControllerProtocol {
     }
     
     func setmusicImg(_ image: UIImage) {
-        DispatchQueue.main.async {
-            self.musicImg.image = image
-        }
+        self.musicImg.image = image
     }
     
     func getSource() -> Music? {

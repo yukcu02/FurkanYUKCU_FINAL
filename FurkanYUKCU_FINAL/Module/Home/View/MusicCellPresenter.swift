@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iTunesAPI
 
 protocol MusicCellPresenterProtocol: AnyObject {
     func load()
@@ -13,30 +14,23 @@ protocol MusicCellPresenterProtocol: AnyObject {
 final class MusicCellPresenter {
     
     weak var view: MusicCellProtocol?
+    let interactor: MusicCellInteractorProtocol!
     private let music: Music
     
     init(
         view: MusicCellProtocol?,
-         music: Music
+        interactor: MusicCellInteractorProtocol!,
+        music: Music
     ){
         self.view = view
+        self.interactor = interactor
         self.music = music
     }
 }
 extension MusicCellPresenter: MusicCellPresenterProtocol {
     func load() {
-        ImageDownloader.shared.image(music: music) { [weak self] data, error in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print("Hata: \(error)")
-                return
-            }
-            
-            if let data = data {
-                guard let img = UIImage(data: data) else { return }
-                self.view?.musicImg(img)
-            }
+        if let url = music.artworkUrl100 {
+            interactor.fetchImage(url)
         }
         
         view?.trackName(music.trackName ?? "")
@@ -45,24 +39,8 @@ extension MusicCellPresenter: MusicCellPresenterProtocol {
     }
 }
 
-//extension MusicCellPresenter: MusicCellPresenterProtocol {
-//
-//    func load() {
-//        ImageDownloader.shared.image(
-//            music: music,
-//            format: .threeByTwoSmallAt2X)
-//        { [weak self] data, error in
-//
-//            guard let self else { return }
-//
-//            if let data {
-//                guard let img = UIImage(data: data) else { return }
-//                self.view?.musicImg(img)
-//            }
-//        }
-//
-//        view?.trackName(music.trackName ?? "")
-//        view?.artistName(music.artistName ?? "")
-//        view?.collectionName(music.collectionName ?? "")
-//    }
-//}
+extension MusicCellPresenter: MusicCellInteractorOutputProcol {
+    func onImageResult(_ data: Data?) {
+        view?.musicImg(data ?? Data())
+    }
+}

@@ -12,16 +12,16 @@ protocol SplashViewControllerProtocol: AnyObject {
 }
 
 final class SplashViewController: BaseViewController {
-
+    
     var presenter: SplashPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         presenter.viewDidAppear()
     }
-
+    
 }
 extension SplashViewController: SplashViewControllerProtocol {
     

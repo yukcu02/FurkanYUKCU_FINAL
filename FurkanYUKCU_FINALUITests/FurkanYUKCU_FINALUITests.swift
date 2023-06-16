@@ -27,8 +27,105 @@ final class FurkanYUKCU_FINALUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        func testTableViewExists() {
+            let app = XCUIApplication()
+            app.launch()
+
+            XCTAssertTrue(app.tables["tableView"].exists)
+        }
+        func testSearchBarExists() {
+            let app = XCUIApplication()
+            app.launch()
+
+            XCTAssertTrue(app.searchFields["searchBar"].exists)
+        }
+        func testCellExists() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let tableView = app.tables["tableView"]
+            XCTAssertTrue(tableView.cells.element(boundBy: 0).exists)
+        }
+        func testCellTappingNavigatesToDetail() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let tableView = app.tables["tableView"]
+            let cell = tableView.cells.element(boundBy: 0)
+            cell.tap()
+
+            XCTAssertTrue(app.navigationBars["DetailView"].exists)
+        }
+        func testPlayButtonPlaysAudio() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let tableView = app.tables["tableView"]
+            let cell = tableView.cells.element(boundBy: 0)
+            let playButton = cell.buttons["playButton"]
+            playButton.tap()
+
+            // Add assertions to check if audio is playing
+        }
+        func testTrackNameLabelExists() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let tableView = app.tables["tableView"]
+            let cell = tableView.cells.element(boundBy: 0)
+            let trackNameLabel = cell.staticTexts["trackName"]
+            
+            XCTAssertTrue(trackNameLabel.exists)
+        }
+        func testArtistNameLabelExists() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let tableView = app.tables["tableView"]
+            let cell = tableView.cells.element(boundBy: 0)
+            let artistNameLabel = cell.staticTexts["artistName"]
+            
+            XCTAssertTrue(artistNameLabel.exists)
+        }
+        func testCollectionNameLabelExists() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let tableView = app.tables["tableView"]
+            let cell = tableView.cells.element(boundBy: 0)
+            let collectionNameLabel = cell.staticTexts["collectionName"]
+            
+            XCTAssertTrue(collectionNameLabel.exists)
+        }
+        func testMusicImageExists() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let tableView = app.tables["tableView"]
+            let cell = tableView.cells.element(boundBy: 0)
+            let musicImage = cell.images["musicImg"]
+            
+            XCTAssertTrue(musicImage.exists)
+        }
+        func testSearchDisplaysResults() {
+            let app = XCUIApplication()
+            app.launch()
+
+            let searchBar = app.searchFields["searchBar"]
+            searchBar.tap()
+            searchBar.typeText("example")
+
+            let tableView = app.tables["tableView"]
+            XCTAssertTrue(tableView.cells.count > 0)
+        }
+        func testMusicListDisplayed() {
+            let app = XCUIApplication()
+            app.launch()
+
+            XCTAssertTrue(app.tables["musicTableView"].exists)
+
+            XCTAssertTrue(app.tables.cells.count > 0)
+        }    }
 
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
