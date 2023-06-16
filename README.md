@@ -30,10 +30,6 @@ Conclusion
 This Swift project demonstrates the usage of the iTunes API to create an iOS application for searching and viewing media content. It employs the Viper architecture for better code organization and testability. The project also incorporates features such as favorites management, audio playback, and unit/UI testing for a robust user experience.
 For any further questions or assistance, please feel free to reach out.
 Happy coding!
-
-
-![Simulator Screenshot - iPhone 14 Pro - 2023-06-16 at 23 03 54](https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/8c3892d4-0b26-41d6-9686-e53b6a4e22c2)
-
-![Simulator Screenshot - iPhone 14 Pro - 2023-06-16 at 23 04 00](https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/8cd44a48-e6c5-4398-9162-cbb1650e722a)
-
-![Simulator Screenshot - iPhone 14 Pro - 2023-06-16 at 23 03 57](https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/9bb4d357-512a-4afa-afdc-023c05f139d6)
+<img width="365" alt="Screenshot 2023-06-16 at 23 08 55" src="https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/d2afa022-773d-4b57-a4cb-27423bbcdb63">
+<img width="365" alt="Screenshot 2023-06-16 at 23 09 04" src="https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/ea958022-0467-4bb0-85b5-9966d2839c3c">
+<img width="365" alt="Screenshot 2023-06-16 at 23 09 19" src="https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/bbdb79dd-0283-4ff4-bbcd-038226cc7c57">
