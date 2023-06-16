@@ -21,7 +21,8 @@ If audio data is available for a selected item, pressing the audio button trigge
 To get started with the project, follow these steps:
 1. Clone the repository to your local machine.
 2. Open the project in Xcode.
-3. Build and run the application on the iOS simulator or a physical device.
+3. Build and run the application on the iOS simulator or
+ a physical device.
 Please note that you may need to provide your own API key or credentials for accessing the iTunes API. Refer to the API documentation for further instructions.
 Testing
 The project includes both unit tests and UI tests to ensure the functionality and stability of the application. You can run the tests in Xcode by selecting the target and clicking the "Run" button.
@@ -29,3 +30,10 @@ Conclusion
 This Swift project demonstrates the usage of the iTunes API to create an iOS application for searching and viewing media content. It employs the Viper architecture for better code organization and testability. The project also incorporates features such as favorites management, audio playback, and unit/UI testing for a robust user experience.
 For any further questions or assistance, please feel free to reach out.
 Happy coding!
+
+
+![Simulator Screenshot - iPhone 14 Pro - 2023-06-16 at 23 03 54](https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/8c3892d4-0b26-41d6-9686-e53b6a4e22c2)
+
+![Simulator Screenshot - iPhone 14 Pro - 2023-06-16 at 23 04 00](https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/8cd44a48-e6c5-4398-9162-cbb1650e722a)
+
+![Simulator Screenshot - iPhone 14 Pro - 2023-06-16 at 23 03 57](https://github.com/yukcu02/FurkanYUKCU_FINAL/assets/112817816/9bb4d357-512a-4afa-afdc-023c05f139d6)
